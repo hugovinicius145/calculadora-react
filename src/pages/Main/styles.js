@@ -17,7 +17,7 @@ export const ButtonList = styled.ul`
   grid-gap: 5px;
   list-style: none;
 
-  li span {
+  li button {
     display: flex;
     flex-direction: column;
     font-size: 22px;
@@ -31,6 +31,7 @@ export const ButtonList = styled.ul`
     align-items: center;
     text-align: center;
     padding: 30px;
+    background: #191920;
   }
 `;
 
@@ -45,6 +46,8 @@ export const Input = styled.input`
   width: 100%;
   height: 150px;
   margin-bottom: 5px;
-  padding-right: 25px;
+  padding-right: 10px;
+  padding-left: 25px;
   padding-top: 100px;
+  max-width: 320px;
 `;

@@ -6,7 +6,8 @@ import { MdBackspace } from "react-icons/md";
 
 export default class Main extends Component {
   state = {
-    buttons: []
+    buttons: [],
+    input: '',
   };
 
   componentDidMount() {
@@ -26,25 +27,29 @@ export default class Main extends Component {
         "-",
         "1",
         "2",
-        "3",
+        3,
         "+",
         "",
-        "0",
+        0,
         ".",
         "="
       ]
     });
   }
 
+  handleInputChange = e => {
+    if (parseInt(e.target.value)) {this.setState({input: e.target.value})}
+  }
+
   render() {
-    const { buttons } = this.state;
+    const { buttons, input } = this.state;
     return (
       <Container>
-        <Input type="text" placeholder="0" maxLength={20} />
+        <Input type="text" placeholder="0" value={input} onChange={this.handleInputChange}/>
         <ButtonList>
           {buttons.map(button => (
-            <li key={button}>
-              <span>{button}</span>
+            <li key={button} >
+              <button value={button} onClick={this.handleInputChange}>{button}</button>
             </li>
           ))}
         </ButtonList>
