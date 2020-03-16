@@ -7,14 +7,16 @@ import { MdBackspace } from "react-icons/md";
 export default class Main extends Component {
   state = {
     buttons: [],
-    input: '',
+    input: "",
+    expression: [],
+    partial: ""
   };
 
   componentDidMount() {
     this.setState({
       buttons: [
         "C",
-        <MdBackspace />,
+        <MdBackspace value="backspace" />,
         "%",
         "/",
         "7",
@@ -27,10 +29,10 @@ export default class Main extends Component {
         "-",
         "1",
         "2",
-        3,
+        "3",
         "+",
         "",
-        0,
+        "0",
         ".",
         "="
       ]
@@ -38,21 +40,32 @@ export default class Main extends Component {
   }
 
   handleInputChange = e => {
-    if (parseInt(e.target.value)) {this.setState({input: e.target.value})}
-  }
+    const { partial } = this.state;
+    if (parseInt(e.target.value) || e.target.value === "0") {
+      this.setState({ partial: partial + e.target.value });
+    }
+  };
 
   render() {
-    const { buttons, input } = this.state;
+    const { buttons, input, partial } = this.state;
     return (
       <Container>
-        <Input type="text" placeholder="0" value={input} onChange={this.handleInputChange}/>
+        <Input
+          type="text"
+          placeholder="0"
+          value={partial}
+          onChange={this.handleInputChange}
+        />
         <ButtonList>
           {buttons.map(button => (
-            <li key={button} >
-              <button value={button} onClick={this.handleInputChange}>{button}</button>
+            <li key={button}>
+              <button value={button} onClick={this.handleInputChange}>
+                {button}
+              </button>
             </li>
           ))}
         </ButtonList>
+        {console.log(partial)}
       </Container>
     );
   }
