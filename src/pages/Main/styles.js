@@ -17,7 +17,7 @@ export const ButtonList = styled.ul`
   grid-gap: 5px;
   list-style: none;
 
-  li button {
+  li > button {
     display: flex;
     flex-direction: column;
     font-size: 22px;

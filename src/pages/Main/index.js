@@ -7,9 +7,9 @@ import { MdBackspace } from "react-icons/md";
 export default class Main extends Component {
   state = {
     buttons: [],
-    input: "",
     expression: [],
-    partial: ""
+    partial: "",
+    output: '',
   };
 
   componentDidMount() {
@@ -39,33 +39,45 @@ export default class Main extends Component {
     });
   }
 
-  handleInputChange = e => {
-    const { partial } = this.state;
-    if (parseInt(e.target.value) || e.target.value === "0") {
-      this.setState({ partial: partial + e.target.value });
-    }
+  handleInputChange = ({ target: { value } }) => {
+    const { expression } = this.state;
+
+    value !== "C" ? (
+      this.setState({ expression: [...expression, value] })
+    ) : (
+      this.setState({ expression: [] })
+    );
   };
 
   render() {
-    const { buttons, input, partial } = this.state;
+    const { buttons, expression, output } = this.state;
     return (
       <Container>
         <Input
           type="text"
           placeholder="0"
-          value={partial}
+          value={expression.join('')}
+          disabled
           onChange={this.handleInputChange}
         />
         <ButtonList>
           {buttons.map(button => (
             <li key={button}>
-              <button value={button} onClick={this.handleInputChange}>
+              {
+                (parseInt(button) || button === "0")? (
+                  <button style={{ color: '#fff' }} value={button} onClick={this.handleInputChange}>
                 {button}
               </button>
+                ) : (
+                  <button value={button} onClick={this.handleInputChange}>
+                {button}
+              </button>
+                )
+              }
             </li>
           ))}
         </ButtonList>
-        {console.log(partial)}
+        {console.log(output, expression)}
       </Container>
     );
   }
